@@ -1,0 +1,1713 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0b0b0e" />
+    <title>Year End Party — Fancy Media</title>
+
+    <style>
+      /* ========== Luxury Black & Gold Invitation (Single-file) ========== */
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap");
+
+      :root {
+        --bg: #07070a;
+        --bg2: #0b0b12;
+        --card: rgba(255, 255, 255, 0.06);
+        --card2: rgba(255, 255, 255, 0.09);
+        --line: rgba(255, 255, 255, 0.1);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.72);
+
+        --gold1: #ffe7a6;
+        --gold2: #f7c85d;
+        --gold3: #d7a21f;
+        --gold4: #a77711;
+
+        --shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+        --shadow2: 0 12px 30px rgba(0, 0, 0, 0.45);
+        --radius: 24px;
+        --radius2: 18px;
+
+        --max: 980px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(
+            1200px 800px at 20% -10%,
+            rgba(255, 216, 120, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 700px at 100% 10%,
+            rgba(255, 205, 90, 0.14),
+            transparent 55%
+          ),
+          radial-gradient(
+            1000px 900px at 60% 120%,
+            rgba(255, 220, 120, 0.12),
+            transparent 60%
+          ),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+        color: var(--text);
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Scroll like “pages” */
+      .snap {
+        height: 100vh;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+      }
+      section {
+        min-height: 100vh;
+        scroll-snap-align: start;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 84px 18px 56px;
+        isolation: isolate;
+      }
+
+      /* Subtle noise + vignette */
+      .noise:before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          radial-gradient(
+            circle at 20% 10%,
+            rgba(255, 220, 120, 0.16),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 90% 30%,
+            rgba(255, 220, 120, 0.12),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 90%,
+            rgba(255, 220, 120, 0.08),
+            transparent 50%
+          );
+        mix-blend-mode: screen;
+        opacity: 0.9;
+        z-index: 0;
+      }
+      .noise:after {
+        content: "";
+        position: fixed;
+        inset: -2px;
+        pointer-events: none;
+        background: radial-gradient(
+          1200px 900px at 50% 50%,
+          transparent 45%,
+          rgba(0, 0, 0, 0.55) 78%,
+          rgba(0, 0, 0, 0.78) 100%
+        );
+        z-index: 0;
+      }
+
+      /* Sparkle canvas */
+      canvas#sparkles {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.9;
+      }
+
+      /* Layout container */
+      .wrap {
+        width: min(var(--max), 100%);
+        z-index: 1;
+        position: relative;
+      }
+
+      /* Gold text gradient */
+      .gold {
+        background: linear-gradient(
+          120deg,
+          var(--gold1),
+          var(--gold2),
+          var(--gold3),
+          var(--gold1)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 6px 30px rgba(255, 210, 90, 0.12);
+      }
+
+      /* Top floating nav (minimal) */
+      .topbar {
+        position: fixed;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(1040px, calc(100% - 18px));
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(10, 10, 14, 0.42);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 160px;
+      }
+      .mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        background:
+          radial-gradient(
+            circle at 30% 30%,
+            rgba(255, 235, 180, 0.95),
+            rgba(255, 200, 80, 0.55) 35%,
+            rgba(0, 0, 0, 0.2) 60%
+          ),
+          linear-gradient(
+            140deg,
+            rgba(255, 220, 120, 0.35),
+            rgba(255, 220, 120, 0.05)
+          );
+        border: 1px solid rgba(255, 220, 120, 0.35);
+        box-shadow:
+          0 10px 25px rgba(255, 200, 80, 0.1),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      }
+      .brand .txt {
+        line-height: 1.05;
+      }
+      .brand .txt b {
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.95;
+      }
+      .brand .txt span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .navdots {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8px;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 99px;
+        border: 1px solid rgba(255, 220, 120, 0.55);
+        background: rgba(255, 220, 120, 0.15);
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+        cursor: pointer;
+      }
+      .dot.active {
+        background: linear-gradient(120deg, var(--gold1), var(--gold3));
+        transform: scale(1.22);
+        box-shadow: 0 0 0 4px rgba(255, 220, 120, 0.12);
+      }
+
+      .cta-mini {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        min-width: 160px;
+        justify-content: flex-end;
+      }
+      .btn {
+        appearance: none;
+        border: 1px solid rgba(255, 220, 120, 0.35);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 220, 120, 0.18),
+          rgba(255, 220, 120, 0.06)
+        );
+        color: rgba(255, 255, 255, 0.92);
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.15s ease,
+          filter 0.2s ease,
+          background 0.2s ease;
+        user-select: none;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.08);
+      }
+      .btn.primary {
+        border-color: rgba(255, 220, 120, 0.55);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 232, 170, 0.95),
+          rgba(247, 200, 93, 0.65),
+          rgba(215, 162, 31, 0.55)
+        );
+        color: #17140a;
+        box-shadow:
+          0 18px 40px rgba(255, 200, 80, 0.12),
+          0 16px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      /* Decorative ornaments */
+      .orn {
+        position: absolute;
+        inset: auto;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.85;
+        filter: drop-shadow(0 30px 55px rgba(0, 0, 0, 0.55));
+      }
+      .orn.top {
+        top: -10px;
+        left: 0;
+        width: 240px;
+        height: 200px;
+        background:
+          radial-gradient(
+            circle at 18% 30%,
+            rgba(255, 220, 120, 0.55),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 40% 15%,
+            rgba(255, 240, 190, 0.5),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 62% 38%,
+            rgba(255, 200, 80, 0.42),
+            transparent 48%
+          ),
+          conic-gradient(
+            from 180deg at 45% 40%,
+            rgba(255, 220, 120, 0),
+            rgba(255, 220, 120, 0.35),
+            rgba(255, 220, 120, 0)
+          );
+        border-radius: 50%;
+        mask-image: radial-gradient(
+          circle at 35% 35%,
+          black 60%,
+          transparent 70%
+        );
+      }
+      .orn.bottom {
+        right: -40px;
+        bottom: -40px;
+        width: 420px;
+        height: 420px;
+        background:
+          radial-gradient(
+            circle at 30% 35%,
+            rgba(255, 220, 120, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 70% 60%,
+            rgba(255, 200, 80, 0.12),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 55% 45%,
+            rgba(255, 240, 190, 0.08),
+            transparent 55%
+          ),
+          linear-gradient(145deg, rgba(255, 220, 120, 0.08), transparent 55%);
+        border-radius: 50%;
+        mask-image: radial-gradient(circle, black 55%, transparent 72%);
+      }
+
+      /* Card */
+      .card {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background:
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.03)
+          ),
+          radial-gradient(
+            900px 360px at 30% 0%,
+            rgba(255, 220, 120, 0.1),
+            transparent 55%
+          ),
+          radial-gradient(
+            800px 320px at 90% 10%,
+            rgba(255, 220, 120, 0.08),
+            transparent 55%
+          );
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 34px 28px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+      .card:before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 220, 120, 0.32),
+          rgba(255, 255, 255, 0),
+          rgba(255, 220, 120, 0.22)
+        );
+        opacity: 0.22;
+        filter: blur(18px);
+        pointer-events: none;
+      }
+      .card:after {
+        content: "";
+        position: absolute;
+        left: -20%;
+        top: -30%;
+        width: 140%;
+        height: 140%;
+        background: repeating-linear-gradient(
+          135deg,
+          rgba(255, 220, 120, 0.08) 0 2px,
+          transparent 2px 10px
+        );
+        opacity: 0.08;
+        transform: rotate(-8deg);
+        pointer-events: none;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      .kicker {
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.78);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .kicker:before {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 220, 120, 0),
+          rgba(255, 220, 120, 0.85)
+        );
+      }
+      .title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        line-height: 1.02;
+        margin-top: 12px;
+        font-size: clamp(34px, 5vw, 64px);
+      }
+      .script {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(22px, 3vw, 34px);
+        color: rgba(255, 240, 190, 0.85);
+        margin-top: 12px;
+      }
+      .lead {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.75;
+        max-width: 68ch;
+      }
+
+      /* Hero layout */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 20px;
+        align-items: stretch;
+      }
+      .hero .panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 420px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 220, 120, 0.22);
+        background: rgba(0, 0, 0, 0.22);
+        width: fit-content;
+        box-shadow: var(--shadow2);
+      }
+      .badge .pill {
+        width: 10px;
+        height: 10px;
+        border-radius: 99px;
+        background: linear-gradient(180deg, var(--gold1), var(--gold3));
+        box-shadow: 0 0 0 5px rgba(255, 220, 120, 0.1);
+      }
+      .badge span {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .hero-right {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .mini {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.22);
+        padding: 16px 16px;
+        box-shadow: var(--shadow2);
+        overflow: hidden;
+        position: relative;
+      }
+      .mini:before {
+        content: "";
+        position: absolute;
+        inset: -40px;
+        background: radial-gradient(
+          circle at 30% 25%,
+          rgba(255, 220, 120, 0.2),
+          transparent 45%
+        );
+        opacity: 0.75;
+        pointer-events: none;
+      }
+      .mini h3 {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+      }
+      .mini .big {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 1.1;
+        position: relative;
+        z-index: 1;
+      }
+      .mini .sub {
+        margin-top: 6px;
+        font-size: 13px;
+        color: var(--muted);
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Countdown */
+      .count {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .unit {
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      }
+      .unit b {
+        display: block;
+        font-family: "Playfair Display", serif;
+        font-size: 26px;
+        letter-spacing: 0.02em;
+      }
+      .unit span {
+        display: block;
+        margin-top: 4px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      /* 2-column info section */
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        align-items: start;
+      }
+      .sep {
+        margin: 18px 0 0;
+        height: 1px;
+        width: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 220, 120, 0.55),
+          transparent
+        );
+        opacity: 0.6;
+      }
+      .info {
+        margin-top: 14px;
+        display: grid;
+        gap: 10px;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.18);
+      }
+      .ico {
+        width: 36px;
+        height: 36px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 220, 120, 0.26);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 235, 180, 0.65),
+          rgba(255, 200, 80, 0.25) 45%,
+          rgba(0, 0, 0, 0.15) 70%
+        );
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        color: #1a1306;
+        font-weight: 900;
+      }
+      .row b {
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+      .row p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      /* Timeline */
+      .timeline {
+        margin-top: 12px;
+        display: grid;
+        gap: 10px;
+      }
+      .titem {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.18);
+        position: relative;
+        overflow: hidden;
+      }
+      .titem:before {
+        content: "";
+        position: absolute;
+        inset: -1px -1px auto -1px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 220, 120, 0.55),
+          transparent
+        );
+        opacity: 0.55;
+      }
+      .time {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: rgba(255, 240, 190, 0.95);
+      }
+      .titem b {
+        font-size: 14px;
+        letter-spacing: 0.02em;
+      }
+      .titem span {
+        display: block;
+        margin-top: 3px;
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      /* RSVP */
+      form {
+        margin-top: 16px;
+        display: grid;
+        gap: 12px;
+      }
+      label {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.78);
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.22);
+        color: rgba(255, 255, 255, 0.92);
+        outline: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+        font-size: 14px;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: rgba(255, 220, 120, 0.48);
+        box-shadow:
+          0 0 0 4px rgba(255, 220, 120, 0.1),
+          0 10px 20px rgba(0, 0, 0, 0.22);
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .radio {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.18);
+        cursor: pointer;
+        user-select: none;
+      }
+      .chip input {
+        width: auto;
+        box-shadow: none;
+      }
+      .note {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .success {
+        display: none;
+        margin-top: 14px;
+        padding: 14px 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 220, 120, 0.35);
+        background: rgba(255, 220, 120, 0.1);
+        color: rgba(255, 240, 190, 0.95);
+      }
+
+      /* Footer hint */
+      .hint {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+      }
+      .mouse {
+        width: 22px;
+        height: 34px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        position: relative;
+        opacity: 0.8;
+      }
+      .mouse:before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        width: 4px;
+        height: 7px;
+        border-radius: 99px;
+        transform: translateX(-50%);
+        background: linear-gradient(180deg, var(--gold1), var(--gold3));
+        animation: wheel 1.25s infinite ease-in-out;
+      }
+      @keyframes wheel {
+        0% {
+          transform: translate(-50%, 0);
+          opacity: 0.8;
+        }
+        70% {
+          transform: translate(-50%, 10px);
+          opacity: 0.2;
+        }
+        100% {
+          transform: translate(-50%, 0);
+          opacity: 0.8;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 920px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .cta-mini {
+          display: none;
+        }
+        .brand {
+          min-width: auto;
+        }
+      }
+      @media (max-width: 640px) {
+        .card {
+          padding: 26px 18px;
+        }
+        .grid2 {
+          grid-template-columns: 1fr;
+        }
+        .two {
+          grid-template-columns: 1fr;
+        }
+        .count {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .titem {
+          grid-template-columns: 90px 1fr;
+        }
+        .topbar {
+          padding: 10px 10px;
+        }
+      }
+
+      /* Accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        .snap {
+          scroll-behavior: auto;
+        }
+        .mouse:before {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="noise">
+    <canvas id="sparkles" aria-hidden="true"></canvas>
+
+    <!-- Top minimal navigation -->
+    <div class="topbar" role="navigation" aria-label="Điều hướng thiệp mời">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div class="txt">
+          <b class="gold" id="brandName">Year End Party</b><br />
+          <span id="brandSub">Fancy Media</span>
+        </div>
+      </div>
+
+      <div class="navdots" aria-label="Các trang">
+        <div class="dot active" data-go="s1" title="Trang 1"></div>
+        <div class="dot" data-go="s2" title="Trang 2"></div>
+        <div class="dot" data-go="s3" title="Trang 3"></div>
+        <div class="dot" data-go="s4" title="Trang 4"></div>
+      </div>
+
+      <div class="cta-mini">
+        <a class="btn" href="#s4">Tham Gia</a>
+        <button class="btn primary" id="btnCalendar" type="button">
+          + Thêm vào lịch
+        </button>
+      </div>
+    </div>
+
+    <main class="snap" id="snap">
+      <!-- SECTION 1: HERO -->
+      <section id="s1" aria-label="Trang mở đầu">
+        <div class="orn top" aria-hidden="true"></div>
+        <div class="orn bottom" aria-hidden="true"></div>
+
+        <div class="wrap">
+          <div class="card">
+            <div class="hero">
+              <div class="panel">
+                <div>
+                  <div class="badge">
+                    <div class="pill" aria-hidden="true"></div>
+                    <span id="inviteLine">TRÂN TRỌNG KÍNH MỜI</span>
+                  </div>
+
+                  <div class="kicker" style="margin-top: 16px">
+                    <span id="hostLine">CÔNG TY / ĐƠN VỊ TỔ CHỨC</span>
+                  </div>
+
+                  <h1 class="title">
+                    <span class="gold" id="eventTitle">YEAR END PARTY</span
+                    ><br />
+                    <span style="opacity: 0.9" id="eventYear">2026</span>
+                  </h1>
+
+                  <div class="script" id="tagline">
+                    A Night of Elegance • Cheers • Gratitude
+                  </div>
+
+                  <p class="lead" id="heroDesc">
+                    Hãy cùng chúng tôi khép lại một năm rực rỡ bằng một đêm tiệc
+                    sang trọng — nơi kết nối, tri ân và bùng nổ cảm xúc. Thiệp
+                    mời này được thiết kế để lướt xuống theo từng trang như một
+                    câu chuyện.
+                  </p>
+
+                  <div class="hint">
+                    <div class="mouse" aria-hidden="true"></div>
+                    <span>Cuộn xuống để xem chi tiết</span>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    margin-top: 14px;
+                  "
+                >
+                  <a class="btn primary" href="#s4">Xác nhận tham dự</a>
+                  <a class="btn" href="#s2">Xem thư mời</a>
+                  <a class="btn" href="#s3">Chương trình</a>
+                </div>
+              </div>
+
+              <div class="hero-right">
+                <div class="mini">
+                  <h3>Thời gian</h3>
+                  <div class="big gold" id="eventDatePretty">27.12.2026</div>
+                  <div class="sub" id="eventTimePretty">19:00 • Chủ Nhật</div>
+                </div>
+
+                <div class="mini">
+                  <h3>Đếm ngược</h3>
+                  <div class="count" aria-label="Đếm ngược đến sự kiện">
+                    <div class="unit"><b id="d">--</b><span>Ngày</span></div>
+                    <div class="unit"><b id="h">--</b><span>Giờ</span></div>
+                    <div class="unit"><b id="m">--</b><span>Phút</span></div>
+                    <div class="unit"><b id="s">--</b><span>Giây</span></div>
+                  </div>
+                  <div class="sub" style="margin-top: 10px" id="countNote">
+                    Hãy lưu lịch để không bỏ lỡ khoảnh khắc toả sáng ✨
+                  </div>
+                </div>
+
+                <div class="mini">
+                  <h3>Dress code</h3>
+                  <div class="big" style="font-size: 22px" id="dressCode">
+                    Black • Gold • Glam
+                  </div>
+                  <div class="sub" id="dressHint">
+                    Ưu tiên tông đen/vàng, điểm nhấn ánh kim.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: INVITATION MESSAGE -->
+      <section id="s2" aria-label="Trang thư mời">
+        <div class="wrap">
+          <div class="card">
+            <div class="kicker">Thư mời</div>
+            <h2
+              class="title"
+              style="font-size: clamp(28px, 4vw, 48px); margin-top: 10px"
+            >
+              <span class="gold">Trân trọng</span> kính mời Quý khách
+            </h2>
+            <p class="lead" id="letterText">
+              Trên hành trình phát triển, chúng tôi luôn trân trọng sự đồng hành
+              của Quý khách/Quý đối tác. Nhân dịp cuối năm, kính mời Quý vị tham
+              dự <b>Year End Party</b> — nơi chúng ta cùng nhìn lại thành tựu,
+              chia sẻ niềm vui và mở ra một năm mới đầy hứa hẹn.
+            </p>
+
+            <div class="sep"></div>
+
+            <div class="grid2" style="margin-top: 16px">
+              <div>
+                <div class="kicker">Thông tin sự kiện</div>
+                <div class="info">
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">⟡</div>
+                    <div>
+                      <b>Chủ đề</b>
+                      <p id="themeLine">Golden Night • The Grand Finale</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">⟡</div>
+                    <div>
+                      <b>Khách mời</b>
+                      <p id="guestLine">
+                        Ban Lãnh đạo • Đối tác • Toàn thể nhân sự
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">⟡</div>
+                    <div>
+                      <b>Điểm nhấn</b>
+                      <p id="highlightLine">
+                        Welcome drink • Live music • Lucky draw • After party
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="kicker">Lưu ý</div>
+                <div class="info">
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">✦</div>
+                    <div>
+                      <b>Check-in</b>
+                      <p id="checkinLine">
+                        Vui lòng đến đúng giờ để không bỏ lỡ nhiều chương trình
+                        hấp dẫn.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">✦</div>
+                    <div>
+                      <b>Chỗ ngồi</b>
+                      <p id="seatLine">Sắp xếp theo danh sách xác nhận RSVP.</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">✦</div>
+                    <div>
+                      <b>Liên hệ</b>
+                      <p id="contactLine">
+                        BTC: 09xx xxx xxx • email@company.com
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    margin-top: 14px;
+                  "
+                >
+                  <a class="btn primary" href="#s3">Xem chương trình</a>
+                  <a class="btn" href="#s4">Đi đến RSVP</a>
+                  <button class="btn" id="btnCopy" type="button">
+                    Copy nội dung
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: VENUE + AGENDA -->
+      <section id="s3" aria-label="Trang địa điểm và chương trình">
+        <div class="wrap">
+          <div class="card">
+            <div class="kicker">Địa điểm & Chương trình</div>
+            <h2
+              class="title"
+              style="font-size: clamp(28px, 4vw, 48px); margin-top: 10px"
+            >
+              <span class="gold" id="venueName">MINH TOAN GALAXY</span>
+            </h2>
+            <p class="lead" id="venueAddress">
+              306 Đ. 2 Tháng 9, Hoà Cường Bắc, Hải Châu, Đà Nẵng
+            </p>
+
+            <div class="sep"></div>
+
+            <div class="grid2" style="margin-top: 16px">
+              <div>
+                <div class="kicker">Chỉ đường</div>
+                <div class="info">
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">⌁</div>
+                    <div>
+                      <b>Google Maps</b>
+                      <p>
+                        <a
+                          class="gold"
+                          id="mapLink"
+                          href="https://maps.google.com/?q=Danang"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Mở bản đồ (nhấn để mở)
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">⌁</div>
+                    <div>
+                      <b>Gửi vị trí</b>
+                      <p id="mapHint">
+                        Bạn có thể gửi link map trong nhóm để mọi người đi
+                        chung.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="ico" aria-hidden="true">⌁</div>
+                    <div>
+                      <b>Gửi taxi</b>
+                      <p id="transportHint">
+                        Gợi ý: đặt xe trước 15–20 phút (giờ cao điểm).
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    margin-top: 14px;
+                  "
+                >
+                  <button class="btn" id="btnOpenMap" type="button">
+                    Mở Maps
+                  </button>
+                  <button class="btn" id="btnCalendar2" type="button">
+                    + Thêm vào lịch
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <div class="kicker">Chương trình dự kiến</div>
+                <div class="timeline" id="timeline">
+                  <!-- Filled by JS config -->
+                </div>
+
+                <p class="note" style="margin-top: 10px" id="agendaNote">
+                  *Chương trình có thể điều chỉnh để phù hợp thực tế, nhưng vẫn
+                  đảm bảo “sang — gọn — bùng nổ”.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: RSVP -->
+      <section id="s4" aria-label="Trang xác nhận tham dự">
+        <div class="wrap">
+          <div class="card">
+            <div class="kicker">Xác nhận tham dự</div>
+            <h2
+              class="title"
+              style="font-size: clamp(28px, 4vw, 48px); margin-top: 10px"
+            >
+              Please <span class="gold">RSVP</span>
+            </h2>
+            <p class="lead">
+              Bạn vui lòng để lại thông tin để BTC chuẩn bị đón tiếp chu đáo.
+              (Form này là demo — bạn có thể nối backend/Google Form sau.)
+            </p>
+
+            <div class="sep"></div>
+
+            <form id="rsvpForm" autocomplete="on">
+              <div class="two">
+                <div>
+                  <label for="name">Họ và tên</label>
+                  <input
+                    id="name"
+                    name="name"
+                    placeholder="Nhập họ và tên"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="phone">Số điện thoại</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    placeholder="VD: 09xx xxx xxx"
+                    inputmode="tel"
+                  />
+                </div>
+              </div>
+
+              <div class="two">
+                <div>
+                  <label>Bạn sẽ tham dự chứ?</label>
+                  <div
+                    class="radio"
+                    role="radiogroup"
+                    aria-label="Xác nhận tham dự"
+                  >
+                    <label class="chip"
+                      ><input type="radio" name="attend" value="Có" checked />
+                      Có, tôi sẽ tham dự</label
+                    >
+                    <label class="chip"
+                      ><input type="radio" name="attend" value="Không" /> Tôi
+                      bận, rất tiếc không thể tham dự</label
+                    >
+                  </div>
+                </div>
+                <div>
+                  <label for="guests">Số lượng người tham dự</label>
+                  <select id="guests" name="guests">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="note"
+                  >Ghi chú (dị ứng, ăn chay, yêu cầu đặc biệt...)</label
+                >
+                <textarea
+                  id="note"
+                  name="note"
+                  rows="3"
+                  placeholder="VD: Ăn chay / Không hải sản / Cần hỗ trợ..."
+                ></textarea>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  flex-wrap: wrap;
+                  margin-top: 6px;
+                "
+              >
+                <button class="btn primary" type="submit">Gửi xác nhận</button>
+                <button class="btn" type="button" id="btnReset">Làm mới</button>
+                <a class="btn" href="#s1">Về đầu trang</a>
+              </div>
+            </form>
+
+            <div
+              class="success"
+              id="successBox"
+              role="status"
+              aria-live="polite"
+            >
+              ✅ Đã nhận thông tin. BTC sẽ liên hệ xác nhận nếu cần. Hẹn gặp bạn
+              tại đêm tiệc!
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      /* ===================== CONFIG (Chỉ cần sửa phần này) ===================== */
+      const CONFIG = {
+        brandName: "YEAR END PARTY",
+        brandSub: "Fancy Media",
+        inviteLine: "TRÂN TRỌNG KÍNH MỜI",
+        hostLine: "CÔNG TY / ĐƠN VỊ TỔ CHỨC",
+
+        eventTitle: "YEAR END PARTY",
+        eventYear: "2026",
+        tagline: "Golden Night • Cheers • Gratitude",
+        heroDesc:
+          "Hãy cùng chúng tôi khép lại một năm rực rỡ bằng một đêm tiệc sang trọng — nơi kết nối, tri ân và bùng nổ cảm xúc. ",
+
+        // Event datetime (local)
+        // Format: YYYY-MM-DDTHH:mm:ss  (không timezone để chạy theo máy người xem)
+        eventStart: "2026-02-03T17:00:00",
+        eventEnd: "2026-02-03T22:30:00",
+
+        eventDatePretty: "3.2.2026",
+        eventTimePretty: "17:00 • Thứ 3",
+
+        dressCode: "Black • Gold • Glam",
+        dressHint: "Ưu tiên tông đen/vàng, điểm nhấn ánh kim.",
+
+        letterText:
+          "Trên hành trình phát triển, chúng tôi luôn trân trọng sự đồng hành của Quý khách/Quý đối tác. " +
+          "Nhân dịp cuối năm, kính mời Quý vị tham dự Year End Party — nơi chúng ta cùng nhìn lại thành tựu, " +
+          "chia sẻ niềm vui và mở ra một năm mới đầy hứa hẹn.",
+
+        themeLine: "Golden Night • The Grand Finale",
+        guestLine: "Ban Lãnh đạo • Đối tác • Toàn thể nhân sự",
+        highlightLine: "Welcome drink • Live music • Lucky draw • After party",
+        checkinLine:
+          "Vui lòng đến đúng giờ để không bỏ lỡ nhiều chương trình hấp dẫn.",
+        seatLine: "Sắp xếp theo danh sách xác nhận RSVP.",
+        contactLine: "BTC: 0888 240 074 • fancymedia@gmail.com",
+
+        venueName: "MINH TOAN GALAXY",
+        venueAddress: "306 Đ. 2 Tháng 9, Hoà Cường Bắc, Hải Châu, Đà Nẵng",
+        mapQuery: "306 Đ. 2 Tháng 9, Hoà Cường Bắc, Hải Châu, Đà Nẵng",
+
+        agenda: [
+          {
+            time: "16:30 – 17:00",
+            title: "Setup kỹ thuật",
+            desc: "Dựng sân khấu, âm thanh, ánh sáng, LED, bàn ghế, banner/standy",
+          },
+          {
+            time: "17:00 – 17:45",
+            title: "Tổng duyệt kỹ thuật",
+            desc: "Test micro, nhạc, video, ánh sáng từng tiết mục",
+          },
+          {
+            time: "17:45 – 18:00",
+            title: "Opening Performance",
+            desc: "Tiết mục mở màn",
+          },
+          {
+            time: "18:00 - 18:30",
+            title: "MC khai mạc",
+            desc: "Chào mừng – giới thiệu chương trình",
+          },
+          {
+            time: "18:30 – 18:45",
+            title: "Phát biểu lãnh đạo",
+            desc: "Giám đốc phát biểu – nâng ly",
+          },
+          {
+            time: "18:45 - 19:15",
+            title: "Vinh danh – Trao thưởng",
+            desc: "Trao giải cá nhân, tập thể, chụp hình",
+          },
+          {
+            time: "19:15 - 21:30",
+            title: "Dùng tiệc & Minigame",
+            desc: "Ăn tối – Giao lưu - Game sân khấu – Trò chơi - Quà tặng",
+          },
+        ],
+
+        calendar: {
+          location: "MINH TOAN GALAXY",
+          description:
+            "YEAR END PARTY — Luxury Invitation. Please RSVP trước để BTC sắp xếp.",
+        },
+      };
+
+      /* ===================== Apply CONFIG to UI ===================== */
+      const $ = (id) => document.getElementById(id);
+
+      $("brandName").textContent = CONFIG.brandName;
+      $("brandSub").textContent = CONFIG.brandSub;
+      $("inviteLine").textContent = CONFIG.inviteLine;
+      $("hostLine").textContent = CONFIG.hostLine;
+
+      $("eventTitle").textContent = CONFIG.eventTitle;
+      $("eventYear").textContent = CONFIG.eventYear;
+      $("tagline").textContent = CONFIG.tagline;
+      $("heroDesc").textContent = CONFIG.heroDesc;
+
+      $("eventDatePretty").textContent = CONFIG.eventDatePretty;
+      $("eventTimePretty").textContent = CONFIG.eventTimePretty;
+
+      $("dressCode").textContent = CONFIG.dressCode;
+      $("dressHint").textContent = CONFIG.dressHint;
+
+      $("letterText").textContent = CONFIG.letterText;
+
+      $("themeLine").textContent = CONFIG.themeLine;
+      $("guestLine").textContent = CONFIG.guestLine;
+      $("highlightLine").textContent = CONFIG.highlightLine;
+      $("checkinLine").textContent = CONFIG.checkinLine;
+      $("seatLine").textContent = CONFIG.seatLine;
+      $("contactLine").textContent = CONFIG.contactLine;
+
+      $("venueName").textContent = CONFIG.venueName;
+      $("venueAddress").textContent = CONFIG.venueAddress;
+
+      const mapURL =
+        "https://maps.google.com/?q=" + encodeURIComponent(CONFIG.mapQuery);
+      $("mapLink").href = mapURL;
+
+      /* Build timeline */
+      const tl = $("timeline");
+      tl.innerHTML = "";
+      CONFIG.agenda.forEach((a) => {
+        const div = document.createElement("div");
+        div.className = "titem";
+        div.innerHTML = `
+        <div class="time">${a.time}</div>
+        <div>
+          <b>${escapeHtml(a.title)}</b>
+          <span>${escapeHtml(a.desc || "")}</span>
+        </div>
+      `;
+        tl.appendChild(div);
+      });
+
+      /* ===================== Scroll dots state ===================== */
+      const snap = $("snap");
+      const sections = ["s1", "s2", "s3", "s4"].map((id) =>
+        document.getElementById(id),
+      );
+      const dots = Array.from(document.querySelectorAll(".dot"));
+
+      function setActiveDot(idx) {
+        dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      }
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const idx = sections.findIndex((s) => s === e.target);
+              if (idx >= 0) setActiveDot(idx);
+            }
+          });
+        },
+        { root: snap, threshold: 0.55 },
+      );
+
+      sections.forEach((s) => io.observe(s));
+
+      dots.forEach((d) => {
+        d.addEventListener("click", () => {
+          const id = d.dataset.go;
+          document
+            .getElementById(id)
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      /* ===================== Countdown ===================== */
+      const target = new Date(CONFIG.eventStart).getTime();
+      function pad(n) {
+        return String(n).padStart(2, "0");
+      }
+      function tick() {
+        const now = Date.now();
+        let diff = Math.max(0, target - now);
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff -= days * (1000 * 60 * 60 * 24);
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        diff -= hours * (1000 * 60 * 60);
+        const mins = Math.floor(diff / (1000 * 60));
+        diff -= mins * (1000 * 60);
+        const secs = Math.floor(diff / 1000);
+
+        $("d").textContent = pad(days);
+        $("h").textContent = pad(hours);
+        $("m").textContent = pad(mins);
+        $("s").textContent = pad(secs);
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      /* ===================== RSVP (demo) ===================== */
+      const GOOGLE_SHEETS_ENDPOINT =
+        "https://script.google.com/macros/s/AKfycbwd7zLeXLKh1nIiuxT_iFotjFC7Ozd_EzbdSnvE8lMUoLOvrpo4LnShcPyt6WEXFIMgTA/exec";
+      const form = $("rsvpForm");
+      const success = $("successBox");
+      $("btnReset").addEventListener("click", () => {
+        form.reset();
+        success.style.display = "none";
+      });
+
+      form.addEventListener("submit", async (ev) => {
+        ev.preventDefault();
+
+        const name = $("name").value.trim();
+        if (!name) {
+          $("name").focus();
+          return;
+        }
+
+        const attend =
+          form.querySelector('input[name="attend"]:checked')?.value || "";
+        const payload = {
+          name,
+          phone: $("phone").value.trim(),
+          attend,
+          guests: $("guests").value,
+          note: $("note").value.trim(),
+          ua: navigator.userAgent,
+        };
+
+        // UI: disable button
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const oldText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Đang gửi...";
+
+        try {
+          // NOTE: Apps Script đôi khi cần "no-cors" nếu bạn gặp lỗi CORS.
+          // Nhưng no-cors sẽ không đọc được response => vẫn coi như thành công nếu không throw.
+          const res = await fetch(GOOGLE_SHEETS_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+            mode: "no-cors",
+          });
+
+          // đọc response (nếu CORS ok)
+          let ok = true;
+          try {
+            const data = await res.json();
+            ok = !!data.ok;
+          } catch {}
+
+          if (!ok) throw new Error("Sheet returned not ok");
+
+          success.style.display = "block";
+          // form.reset(); // nếu muốn reset luôn thì mở dòng này
+        } catch (err) {
+          alert(
+            "Gửi RSVP chưa thành công. Bạn kiểm tra lại Web App URL / quyền truy cập (Anyone) nhé.",
+          );
+          console.error(err);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = oldText;
+        }
+      });
+
+      /* ===================== Buttons ===================== */
+      $("btnOpenMap").addEventListener("click", () =>
+        window.open(mapURL, "_blank", "noopener,noreferrer"),
+      );
+
+      $("btnCopy").addEventListener("click", async () => {
+        const text = `${CONFIG.inviteLine}
+${CONFIG.eventTitle} ${CONFIG.eventYear}
+Thời gian: ${CONFIG.eventDatePretty} • ${CONFIG.eventTimePretty}
+Địa điểm: ${CONFIG.venueName} — ${CONFIG.venueAddress}
+Dress code: ${CONFIG.dressCode}
+RSVP: (mở thiệp và đi đến phần RSVP)`;
+        try {
+          await navigator.clipboard.writeText(text);
+          $("btnCopy").textContent = "Đã copy ✓";
+          setTimeout(() => ($("btnCopy").textContent = "Copy nội dung"), 1300);
+        } catch {
+          alert("Không thể copy tự động. Bạn hãy copy thủ công nhé.");
+        }
+      });
+
+      $("btnCalendar").addEventListener("click", () => downloadICS());
+      $("btnCalendar2").addEventListener("click", () => downloadICS());
+
+      function downloadICS() {
+        const dtStart = toICSDate(CONFIG.eventStart);
+        const dtEnd = toICSDate(CONFIG.eventEnd);
+        const uid = "yep-" + Math.random().toString(16).slice(2) + "@invite";
+        const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Luxury Invitation//Year End Party//VI
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${toICSDate(new Date().toISOString())}
+DTSTART:${dtStart}
+DTEND:${dtEnd}
+SUMMARY:${escapeICSText(CONFIG.eventTitle + " " + CONFIG.eventYear)}
+LOCATION:${escapeICSText(CONFIG.calendar.location)}
+DESCRIPTION:${escapeICSText(CONFIG.calendar.description)}
+END:VEVENT
+END:VCALENDAR`;
+
+        const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "YearEndParty.ics";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      }
+
+      function toICSDate(dateInput) {
+        // Keep as local-ish; many clients accept floating time "YYYYMMDDTHHMMSS"
+        const d = new Date(dateInput);
+        const y = d.getFullYear();
+        const mo = String(d.getMonth() + 1).padStart(2, "0");
+        const da = String(d.getDate()).padStart(2, "0");
+        const hh = String(d.getHours()).padStart(2, "0");
+        const mm = String(d.getMinutes()).padStart(2, "0");
+        const ss = String(d.getSeconds()).padStart(2, "0");
+        return `${y}${mo}${da}T${hh}${mm}${ss}`;
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+      function escapeICSText(str) {
+        return String(str)
+          .replaceAll("\\", "\\\\")
+          .replaceAll("\n", "\\n")
+          .replaceAll(",", "\\,")
+          .replaceAll(";", "\\;");
+      }
+
+      /* ===================== Luxury sparkles (canvas) ===================== */
+      const canvas = document.getElementById("sparkles");
+      const ctx = canvas.getContext("2d");
+      let W = 0,
+        H = 0,
+        DPR = 1;
+      const particles = [];
+      const PCOUNT = 140;
+
+      function resize() {
+        DPR = Math.min(2, window.devicePixelRatio || 1);
+        W = canvas.width = Math.floor(window.innerWidth * DPR);
+        H = canvas.height = Math.floor(window.innerHeight * DPR);
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      function rand(a, b) {
+        return a + Math.random() * (b - a);
+      }
+      function make() {
+        return {
+          x: rand(0, W),
+          y: rand(0, H),
+          r: rand(0.6 * DPR, 1.8 * DPR),
+          a: rand(0.1, 0.65),
+          vx: rand(-0.08, 0.08) * DPR,
+          vy: rand(0.12, 0.45) * DPR,
+          tw: rand(0.004, 0.02),
+          ph: rand(0, Math.PI * 2),
+        };
+      }
+      for (let i = 0; i < PCOUNT; i++) particles.push(make());
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        // soft glow layer
+        ctx.globalCompositeOperation = "lighter";
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.ph += p.tw;
+
+          if (p.y > H + 20 * DPR) {
+            p.y = -20 * DPR;
+            p.x = rand(0, W);
+          }
+          if (p.x < -20 * DPR) p.x = W + 20 * DPR;
+          if (p.x > W + 20 * DPR) p.x = -20 * DPR;
+
+          const twinkle = Math.sin(p.ph) * 0.5 + 0.5;
+          const alpha = p.a * (0.35 + twinkle * 0.85);
+
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 8);
+          grad.addColorStop(0, `rgba(255,232,170,${alpha})`);
+          grad.addColorStop(0.35, `rgba(247,200,93,${alpha * 0.75})`);
+          grad.addColorStop(1, `rgba(0,0,0,0)`);
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 8, 0, Math.PI * 2);
+          ctx.fill();
+
+          // tiny star point
+          ctx.fillStyle = `rgba(255,240,190,${Math.min(1, alpha * 1.1)})`;
+          ctx.fillRect(p.x, p.y, 1.1 * DPR, 1.1 * DPR);
+        }
+        ctx.globalCompositeOperation = "source-over";
+        requestAnimationFrame(draw);
+      }
+      draw();
+    </script>
+  </body>
+</html>
